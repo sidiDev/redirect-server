@@ -23,7 +23,16 @@ class RedirectHandler(BaseHTTPRequestHandler):
         # Parse ?redirect= param
         parsed   = urlparse(self.path)
         params   = parse_qs(parsed.query)
-        dest_url = params.get("redirect", [DEFAULT_URL])[0]
+
+        # No redirect param — return simple response
+        if "redirect" not in params:
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain")
+            self.end_headers()
+            self.wfile.write(b"Hello World")
+            return
+
+        dest_url = params["redirect"][0]
 
         # Build log entry
         log_entry = f"""
