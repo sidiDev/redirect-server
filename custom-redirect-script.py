@@ -58,7 +58,7 @@ class RedirectHandler(BaseHTTPRequestHandler):
             f.write(log_entry)
 
         # Send redirect
-        self.send_response(302)
+        self.send_response(307)
         self.send_header("Location", dest_url)
         self.end_headers()
 
