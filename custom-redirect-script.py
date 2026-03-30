@@ -81,7 +81,7 @@ class RedirectHandler(BaseHTTPRequestHandler):
         with open(LOG_FILE, "a") as f:
             f.write(log_entry)
 
-        self.send_response(200)
+        self.send_response(307)
         self.end_headers()
 
     def log_message(self, format, *args):
