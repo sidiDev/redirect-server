@@ -7,7 +7,12 @@ import os, sys, time, urllib.request
 # ─── CONFIG ───────────────────────────────────────────────────────────────────
 PORT        = int(os.environ.get("PORT", "8000"))
 DEFAULT_URL = "http://169.254.169.254/latest/meta-data/iam/security-credentials/"
-LOG_FILE    = "redirect_log.txt"
+# Vercel serverless FS is read-only except /tmp; local runs use cwd.
+LOG_FILE    = (
+    os.path.join("/tmp", "redirect_log.txt")
+    if os.environ.get("VERCEL")
+    else "redirect_log.txt"
+)
 # ──────────────────────────────────────────────────────────────────────────────
 
 class RedirectHandler(BaseHTTPRequestHandler):
