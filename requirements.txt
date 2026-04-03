@@ -1,1 +1,0 @@
-# Standard library only; listed so Vercel enables the Python runtime.
